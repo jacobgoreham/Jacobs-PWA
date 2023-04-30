@@ -1,18 +1,31 @@
 {
   "name": "jate",
   "version": "1.0.0",
-  "description": "",
+  "description": "A PWA Text editor designed to be installed on Good wifi, and useable without.",
   "main": "server.js",
   "scripts": {
-    "server": "nodemon server.js --ignore client"
+    "dev": "webpack-dev-server",
+    "start:dev": "concurrently \"cd server && npm run server\" \"cd client && npm run dev\"",
+    "start": "npm run build && cd server && node server.js",
+    "server": "cd server nodemon server.js --ignore client",
+    "build": "cd client && npm run build",
+    "install": "cd client && npm install",
+    "client": "cd client && npm start"
   },
   "keywords": [],
-  "author": "",
+  "author": "JacobGoreham",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "if-env": "^1.0.4"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
-  }
+    "concurrently": "^5.2.0",
+    "nodemon": "^1.4.1"
+  },
+  "repo": {
+    "type": "git",
+    "url": "https://github.com/jacobgoreham/Jacobs-PWA"
+  },
+  "homepage": "https://github.com/jacobgoreham/Jacobs-PWA"
 }
