@@ -12,6 +12,9 @@ module.exports = () => {
     entry: {
       main: "./src/js/index.js",
       install: "./src/js/install.js",
+      database: "./src/js/databse.js",
+      editor: "./src/js/editor",
+      header: "./src/js/header.js",
     },
     output: {
       filename: "[name].bundle.js",
@@ -19,22 +22,25 @@ module.exports = () => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: "./src/index.html",
-        chunks: ["main"],
+        template: "./index.html",
+        title: "JATE",
         filename: "index.html",
       }),
-      new HtmlWebpackPlugin({
-        template: "./src/install.html",
-        chunks: ["install"],
-        filename: "install.html",
+
+      new InjectManifest({
+        swSrc: "./src-sw.js",
+        swDest: "src-sw.js",
       }),
       new WebpackPwaManifest({
-        name: "My Progressive Web App",
-        short_name: "MyPWA",
+        inject: true,
+        fingerprints: false,
+        name: "Just Another Text Editor",
+        short_name: "JATE",
         start_url: "/",
-        display: "standalone",
-        background_color: "#ffffff",
-        theme_color: "#000000",
+        publicPath: "/",
+        description: "Just Another Text Editor",
+        background_color: "#225ca5",
+        theme_color: "#225ca5",
         icons: [
           {
             src: path.resolve("src/images/logo.png"),
@@ -42,10 +48,10 @@ module.exports = () => {
           },
         ],
       }),
-      new InjectManifest({
-        swSrc: "./src/sw.js",
-        swDest: "sw.js",
-      }),
+      // new InjectManifest({
+      //   swSrc: "./src/sw.js",
+      //   swDest: "sw.js",
+      // }),
     ],
 
     module: {
